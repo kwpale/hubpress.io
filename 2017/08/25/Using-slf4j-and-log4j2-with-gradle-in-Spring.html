@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="https://kwpale.github.io/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="//kwpale.github.io/themes/casper/assets/css/screen.css?v=1503593174640" />
+    <link rel="stylesheet" type="text/css" href="//kwpale.github.io/themes/casper/assets/css/screen.css?v=1503593474809" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
 
     <link rel="canonical" href="https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html" />
@@ -83,12 +83,16 @@
         </header>
 
         <section class="post-content">
-            <div class="paragraph">
+            <div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
 <p>Official Reference: <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging" class="bare">https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging</a></p>
 </div>
-<div class="paragraph">
-<p>Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_step_1_first_tell_dependency_manager_not_to_use_jakarta_commons_logging_jcl_by_adding">Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding:</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -101,9 +105,11 @@
 <div class="paragraph">
 <p>After that, Spring will issue error since it cannot find the logging facility.</p>
 </div>
-<div class="paragraph">
-<p>Step 2. Replace the JCL by slf4j&#8217;s implementation:</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_step_2_replace_the_jcl_by_slf4j_s_implementation">Step 2. Replace the JCL by slf4j&#8217;s implementation:</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -129,9 +135,11 @@ SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" class="b
 <div class="paragraph">
 <p>Now, Spring can resolve the dependency but that slf4j implementation of JCL&#8217;s api is actually an API itself. So we need to place the implementation into the classpath.</p>
 </div>
-<div class="paragraph">
-<p>Step 3. Add the log4j and log4j-slf4j bridge into the project.</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_step_3_add_the_log4j_and_log4j_slf4j_bridge_into_the_project">Step 3. Add the log4j and log4j-slf4j bridge into the project.</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>build.gradle</p>
 </div>
@@ -146,6 +154,50 @@ SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" class="b
 </div>
 <div class="paragraph">
 <p>Now, the slf4j can find the implmenetaion "org.slf4j.impl.StaticLoggerBinder" in log4j-slf4j-impl, which in turns use log4j-core.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_step_4_add_the_logger_configuration_file_log4j2_xml_into_the_root_of_the_classpath">Step 4. Add the logger configuration file log4j2.xml into the root of the classpath.</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>log4j2.xml</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-xml" data-lang="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Configuration status="WARN" monitorInterval="30"&gt;
+
+	&lt;!-- Appenders --&gt;
+    &lt;Appenders&gt;
+        &lt;Console name="console" target="System_out"&gt;
+            &lt;PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/&gt;
+        &lt;/Console&gt;
+        &lt;File name="file" fileName="${sys:catalina.base}/log.log" append="false"&gt;
+            &lt;PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/&gt;
+        &lt;/File&gt;
+        &lt;RollingFile name="rollingFile" fileName="${sys:catalina.base}/logs/app.log"
+                     filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz"&gt;
+            &lt;PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/&gt;
+            &lt;SizeBasedTriggeringPolicy size="50MB"/&gt;
+            &lt;DefaultRolloverStrategy max="20"/&gt;
+        &lt;/RollingFile&gt;
+    &lt;/Appenders&gt;
+
+	&lt;!-- Application Loggers --&gt;
+    &lt;Loggers&gt;
+        &lt;Logger name="spittr" level="INFO" /&gt;
+        &lt;Root level="DEBUG"&gt;
+            &lt;AppenderRef ref="console" /&gt;
+            &lt;AppenderRef ref="file" /&gt;
+            &lt;AppenderRef ref="rollingFile" /&gt;
+        &lt;/Root&gt;
+    &lt;/Loggers&gt;
+
+&lt;/Configuration&gt;</code></pre>
+</div>
+</div>
+</div>
 </div>
         </section>
 
@@ -216,8 +268,8 @@ SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" class="b
         hljs.initHighlightingOnLoad();
       </script>
 
-    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/jquery.fitvids.js?v=1503593174640"></script>
-    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/index.js?v=1503593174640"></script>
+    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/jquery.fitvids.js?v=1503593474809"></script>
+    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/index.js?v=1503593474809"></script>
 
 </body>
 </html>
