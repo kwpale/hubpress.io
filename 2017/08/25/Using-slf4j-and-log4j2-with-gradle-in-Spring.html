@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="https://kwpale.github.io/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="//kwpale.github.io/themes/casper/assets/css/screen.css?v=1503593474809" />
+    <link rel="stylesheet" type="text/css" href="//kwpale.github.io/themes/casper/assets/css/screen.css?v=1503593688071" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
 
     <link rel="canonical" href="https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html" />
@@ -118,19 +118,15 @@
 }</code></pre>
 </div>
 </div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+<div class="paragraph">
+<p>Opps! Error:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
-SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" class="bare">http://www.slf4j.org/codes.html#StaticLoggerBinder</a> for further details.
-</td>
-</tr>
-</table>
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.</pre>
+</div>
 </div>
 <div class="paragraph">
 <p>Now, Spring can resolve the dependency but that slf4j implementation of JCL&#8217;s api is actually an API itself. So we need to place the implementation into the classpath.</p>
@@ -268,8 +264,8 @@ SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" class="b
         hljs.initHighlightingOnLoad();
       </script>
 
-    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/jquery.fitvids.js?v=1503593474809"></script>
-    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/index.js?v=1503593474809"></script>
+    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/jquery.fitvids.js?v=1503593688071"></script>
+    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/index.js?v=1503593688071"></script>
 
 </body>
 </html>
