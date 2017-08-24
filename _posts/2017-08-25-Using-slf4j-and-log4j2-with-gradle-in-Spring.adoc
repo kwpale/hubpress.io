@@ -1,19 +1,50 @@
-= Your Blog title
- See https://hubpress.gitbooks.io/hubpress-knowledgebase/content/ for information about the parameters.
-:hp-image: /covers/cover.png
-:published_at: 2019-01-31
-:hp-tags: HubPress, Blog, Open_Source,
-:hp-alt-title: My English Title
+= Using slf4j and log4j2 with gradle in Spring
+//:hp-image: /covers/cover.png
+:published_at: 2017-08-25
+:hp-tags: Spring, Logging
 
-Level 1
--------
-Text.
+Official Reference: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging
 
-.hi.java
-[source,java]
+Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding:
+
+.build.gradle
+[source,groovy]
 ----
-String abc (String a, String b) {
-	String c = a + b;
-	return true;
+configurations {
+    compile.exclude group:'commons-logging'
+    testCompile.exclude group:'commons-logging'
 }
 ----
+After that, Spring will issue error since it cannot find the logging facility.
+
+Step 2. Replace the JCL by slf4j's implementation:
+
+.build.gradle
+[source,groovy]
+----
+dependencies {
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.1'
+}
+----
+WARNING: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+
+Now, Spring can resolve the dependency but that slf4j implementation of JCL's api is actually an API itself. So we need to place the implementation into the classpath.
+
+Step 3. Add the log4j and log4j-slf4j bridge into the project.
+
+build.gradle
+[source,groovy]
+----
+dependencies {
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
+}
+----
+Now, the slf4j can find the implmenetaion "org.slf4j.impl.StaticLoggerBinder" in log4j-slf4j-impl, which in turns use log4j-core.
+
+
+
+
