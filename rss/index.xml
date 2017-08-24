@@ -1,17 +1,64 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Pan's Learning Notes]]></title><description><![CDATA[Just want to record what I find useful.]]></description><link>https://kwpale.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 24 Aug 2017 16:05:24 GMT</lastBuildDate><atom:link href="https://kwpale.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Your Blog title]]></title><description><![CDATA[<div class="sect1">
-<h2 id="_level_1">Level 1</h2>
-<div class="sectionbody">
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Pan's Learning Notes]]></title><description><![CDATA[Just want to record what I find useful.]]></description><link>https://kwpale.github.io</link><generator>RSS for Node</generator><lastBuildDate>Thu, 24 Aug 2017 16:46:14 GMT</lastBuildDate><atom:link href="https://kwpale.github.io/rss/" rel="self" type="application/rss+xml"/><ttl>60</ttl><item><title><![CDATA[Using slf4j and log4j2 with gradle in Spring]]></title><description><![CDATA[<div class="paragraph">
+<p>Official Reference: <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging" class="bare">https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging</a></p>
+</div>
 <div class="paragraph">
-<p>Text.</p>
+<p>Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding:</p>
 </div>
 <div class="listingblock">
-<div class="title">hi.java</div>
+<div class="title">build.gradle</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">String abc (String a, String b) {
-	String c = a + b;
-	return true;
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">configurations {
+    compile.exclude group:'commons-logging'
+    testCompile.exclude group:'commons-logging'
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>After that, Spring will issue error since it cannot find the logging facility.</p>
 </div>
-</div>]]></description><link>https://kwpale.github.io/2019/01/31/My-English-Title.html</link><guid isPermaLink="true">https://kwpale.github.io/2019/01/31/My-English-Title.html</guid><category><![CDATA[HubPress]]></category><category><![CDATA[Blog]]></category><category><![CDATA[Open_Source]]></category><pubDate>Thu, 31 Jan 2019 00:00:00 GMT</pubDate></item></channel></rss>
+<div class="paragraph">
+<p>Step 2. Replace the JCL by slf4j&#8217;s implementation:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.1'
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" class="bare">http://www.slf4j.org/codes.html#StaticLoggerBinder</a> for further details.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, Spring can resolve the dependency but that slf4j implementation of JCL&#8217;s api is actually an API itself. So we need to place the implementation into the classpath.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. Add the log4j and log4j-slf4j bridge into the project.</p>
+</div>
+<div class="paragraph">
+<p>build.gradle</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, the slf4j can find the implmenetaion "org.slf4j.impl.StaticLoggerBinder" in log4j-slf4j-impl, which in turns use log4j-core.</p>
+</div>]]></description><link>https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html</link><guid isPermaLink="true">https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html</guid><category><![CDATA[Spring]]></category><category><![CDATA[Logging]]></category><pubDate>Fri, 25 Aug 2017 00:00:00 GMT</pubDate></item></channel></rss>

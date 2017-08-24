@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Using slf4j and log4j2 with gradle in Spring</title>
+    <meta name="description" content="" />
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" href="https://kwpale.github.io/favicon.ico">
+
+    <link rel="stylesheet" type="text/css" href="//kwpale.github.io/themes/casper/assets/css/screen.css?v=1503593174640" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
+
+    <link rel="canonical" href="https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html" />
+    <meta name="referrer" content="origin" />
+    
+    <meta property="og:site_name" content="Pan&#x27;s Learning Notes" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Using slf4j and log4j2 with gradle in Spring" />
+    <meta property="og:description" content="Official Reference: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding: build.gradle configurations {     compile.exclude group:&#x27;commons-logging&#x27;     testCompile.exclude group:&#x27;commons-logging&#x27; } After th" />
+    <meta property="og:url" content="https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html" />
+    <meta property="article:published_time" content="2017-08-25T00:00:00.000Z" />
+    <meta property="article:tag" content="Spring" />
+    <meta property="article:tag" content="Logging" />
+    
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Using slf4j and log4j2 with gradle in Spring" />
+    <meta name="twitter:description" content="Official Reference: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding: build.gradle configurations {     compile.exclude group:&#x27;commons-logging&#x27;     testCompile.exclude group:&#x27;commons-logging&#x27; } After th" />
+    <meta name="twitter:url" content="https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "publisher": "Pan's Learning Notes",
+    "author": {
+        "@type": "Person",
+        "name": "kwpale",
+        "image": "https://avatars1.githubusercontent.com/u/22188849?v=4",
+        "url": "https://kwpale.github.io/author/kwpale/"
+    },
+    "headline": "Using slf4j and log4j2 with gradle in Spring",
+    "url": "https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html",
+    "datePublished": "2017-08-25T00:00:00.000Z",
+    "keywords": "Spring, Logging",
+    "description": "Official Reference: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding: build.gradle configurations {     compile.exclude group:&#x27;commons-logging&#x27;     testCompile.exclude group:&#x27;commons-logging&#x27; } After th"
+}
+    </script>
+
+    <meta name="generator" content="HubPress" />
+    <link rel="alternate" type="application/rss+xml" title="Pan&#x27;s Learning Notes" href="https://kwpale.github.io/rss/" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
+    
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+</head>
+<body class="post-template tag-Spring tag-Logging nav-closed">
+
+    
+
+    <div class="site-wrapper">
+
+        
+
+
+<header class="main-header post-head no-cover">
+    <nav class="main-nav  clearfix">
+        
+    </nav>
+</header>
+
+<main class="content" role="main">
+    <article class="post tag-Spring tag-Logging">
+
+        <header class="post-header">
+            <h1 class="post-title">Using slf4j and log4j2 with gradle in Spring</h1>
+            <section class="post-meta">
+                <time class="post-date" datetime="2017-08-25">25 August 2017</time>  on <a href="https://kwpale.github.io/tag/Spring/">Spring</a>, <a href="https://kwpale.github.io/tag/Logging/">Logging</a>
+            </section>
+        </header>
+
+        <section class="post-content">
+            <div class="paragraph">
+<p>Official Reference: <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging" class="bare">https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging</a></p>
+</div>
+<div class="paragraph">
+<p>Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">configurations {
+    compile.exclude group:'commons-logging'
+    testCompile.exclude group:'commons-logging'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After that, Spring will issue error since it cannot find the logging facility.</p>
+</div>
+<div class="paragraph">
+<p>Step 2. Replace the JCL by slf4j&#8217;s implementation:</p>
+</div>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+    compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.1'
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" class="bare">http://www.slf4j.org/codes.html#StaticLoggerBinder</a> for further details.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Now, Spring can resolve the dependency but that slf4j implementation of JCL&#8217;s api is actually an API itself. So we need to place the implementation into the classpath.</p>
+</div>
+<div class="paragraph">
+<p>Step 3. Add the log4j and log4j-slf4j bridge into the project.</p>
+</div>
+<div class="paragraph">
+<p>build.gradle</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">dependencies {
+    compile group: 'org.apache.logging.log4j', name: 'log4j-slf4j-impl', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, the slf4j can find the implmenetaion "org.slf4j.impl.StaticLoggerBinder" in log4j-slf4j-impl, which in turns use log4j-core.</p>
+</div>
+        </section>
+
+        <footer class="post-footer">
+
+
+            <figure class="author-image">
+                <a class="img" href="https://kwpale.github.io/author/kwpale/" style="background-image: url(https://avatars1.githubusercontent.com/u/22188849?v&#x3D;4)"><span class="hidden">kwpale's Picture</span></a>
+            </figure>
+
+            <section class="author">
+                <h4><a href="https://kwpale.github.io/author/kwpale/">kwpale</a></h4>
+
+                    <p>Read <a href="https://kwpale.github.io/author/kwpale/">more posts</a> by this author.</p>
+                <div class="author-meta">
+                    
+                    
+                </div>
+            </section>
+
+
+            <section class="share">
+                <h4>Share this post</h4>
+                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text=Using%20slf4j%20and%20log4j2%20with%20gradle%20in%20Spring&amp;url=https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                    <span class="hidden">Twitter</span>
+                </a>
+                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+                    <span class="hidden">Facebook</span>
+                </a>
+                <a class="icon-google-plus" href="https://plus.google.com/share?url=https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+                    <span class="hidden">Google+</span>
+                </a>
+            </section>
+
+        </footer>
+
+
+    </article>
+
+</main>
+
+<aside class="read-next">
+</aside>
+
+
+
+        <footer class="site-footer clearfix">
+            <section class="copyright"><a href="https://kwpale.github.io">Pan&#x27;s Learning Notes</a> &copy; 2017</section>
+            <section class="poweredby">Proudly published with <a href="http://hubpress.io">HubPress</a></section>
+        </footer>
+
+    </div>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js?v="></script> 
+      <script type="text/javascript">
+        jQuery( document ).ready(function() {
+          // change date with ago
+          jQuery('ago.ago').each(function(){
+            var element = jQuery(this).parent();
+            element.html( moment(element.text()).fromNow());
+          });
+        });
+
+        hljs.initHighlightingOnLoad();
+      </script>
+
+    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/jquery.fitvids.js?v=1503593174640"></script>
+    <script type="text/javascript" src="//kwpale.github.io/themes/casper/assets/js/index.js?v=1503593174640"></script>
+
+</body>
+</html>
