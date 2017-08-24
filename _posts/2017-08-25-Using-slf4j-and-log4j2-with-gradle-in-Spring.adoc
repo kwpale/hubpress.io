@@ -5,7 +5,7 @@
 
 Official Reference: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging
 
-Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding:
+== Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding:
 
 .build.gradle
 [source,groovy]
@@ -17,7 +17,7 @@ configurations {
 ----
 After that, Spring will issue error since it cannot find the logging facility.
 
-Step 2. Replace the JCL by slf4j's implementation:
+== Step 2. Replace the JCL by slf4j's implementation:
 
 .build.gradle
 [source,groovy]
@@ -32,7 +32,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 Now, Spring can resolve the dependency but that slf4j implementation of JCL's api is actually an API itself. So we need to place the implementation into the classpath.
 
-Step 3. Add the log4j and log4j-slf4j bridge into the project.
+== Step 3. Add the log4j and log4j-slf4j bridge into the project.
 
 build.gradle
 [source,groovy]
@@ -45,6 +45,41 @@ dependencies {
 ----
 Now, the slf4j can find the implmenetaion "org.slf4j.impl.StaticLoggerBinder" in log4j-slf4j-impl, which in turns use log4j-core.
 
+== Step 4. Add the logger configuration file log4j2.xml into the root of the classpath.
 
+log4j2.xml
+[source,xml]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+	<!-- Appenders -->
+    <Appenders>
+        <Console name="console" target="System_out">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <File name="file" fileName="${sys:catalina.base}/log.log" append="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/>
+        </File>
+        <RollingFile name="rollingFile" fileName="${sys:catalina.base}/logs/app.log"
+                     filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+            <SizeBasedTriggeringPolicy size="50MB"/>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+	
+	<!-- Application Loggers -->
+    <Loggers>
+        <Logger name="spittr" level="INFO" />
+        <Root level="DEBUG">
+            <AppenderRef ref="console" />
+            <AppenderRef ref="file" />
+            <AppenderRef ref="rollingFile" />
+        </Root>
+    </Loggers>
+	
+</Configuration>
+----
 
 
