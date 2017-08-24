@@ -26,9 +26,12 @@ dependencies {
     compile group: 'org.slf4j', name: 'jcl-over-slf4j', version: '1.7.1'
 }
 ----
-WARNING: SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+Opps! Error:
+----
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+----
 
 Now, Spring can resolve the dependency but that slf4j implementation of JCL's api is actually an API itself. So we need to place the implementation into the classpath.
 
