@@ -11,7 +11,7 @@
   "urls": {
     "site": "https://kwpale.github.io",
     "hubpress": "https://kwpale.github.io",
-    "theme": "//kwpale.github.io/themes/casper",
+    "theme": "//kwpale.github.io/themes/ghostium",
     "images": "https://kwpale.github.io/images"
   },
   "initialisationConfigComponent": {
