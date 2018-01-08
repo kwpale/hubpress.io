@@ -1,0 +1,75 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script>
+	var text;
+	var index = -1;
+	var isLoaded = false;
+	$(document).ready(function(){
+		$("#text").hide();
+		var htmlElement = document.querySelector("html");
+		$(htmlElement).bind("click touchstart", function(e){
+		   var pWidth = $(this).innerWidth(); //use .outerWidth() if you want borders
+		   var pOffset = $(this).offset(); 
+		   var x = e.pageX - pOffset.left;
+		   if (isLoaded) {
+		    if(pWidth/2 > x)
+		        back();
+		    else
+		        next();
+			}
+		});
+	});
+	function load(id){
+		$("#src").hide();
+		text = $('#' + id).val().split(",");
+		$("#text").show();
+		$("#text").text("START");
+		isLoaded = true;
+	}
+	function next(){
+		if (index<text.length-1) {
+			$("#text").text(text[++index]);
+		} else {
+			index = text.length;
+			$("#text").text("END");
+		}
+	}
+	function back(){
+		if (index>0) {
+			$("#text").text(text[--index]);
+		} else {
+			index = -1;
+			$("#text").text("START");
+		}
+	}
+</script>
+<style>
+	.container {
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    -moz-transform: translateX(-50%) translateY(-50%);
+	    -webkit-transform: translateX(-50%) translateY(-50%);
+	    transform: translateX(-50%) translateY(-50%);
+	}
+	h1 {
+		font-size: 500%;
+	}
+</style>
+</head>
+<body>
+<div id="src">
+<textarea id="src1" rows="4" cols="50">愛心,喜樂,和平,堅忍,仁慈,良善,信心,溫和,自制</textarea><button onclick='load("src1")'>1</button>
+<br>
+<textarea id="src2" rows="4" cols="50">512,51,25,12,521,5,21,521</textarea><button onclick='load("src2")'>2</button>
+</div>
+<div class="container">
+<h1 id="text">
+Text
+</h1>
+</div>
+</body>
+</html>
