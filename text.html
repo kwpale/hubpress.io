@@ -8,7 +8,7 @@
 	var index = -1;
 	var isLoaded = false;
 	$(document).ready(function(){
-		$("#text").hide();
+		$(".playing").hide();
 		var htmlElement = document.querySelector("html");
 		$(htmlElement).bind("click touchstart", function(e){
 		   var pWidth = $(this).innerWidth(); //use .outerWidth() if you want borders
@@ -25,7 +25,7 @@
 	function load(id){
 		$("#src").hide();
 		text = $('#' + id).val().split(",");
-		$("#text").show();
+		$(".playing").show();
 		$("#text").text("START");
 		isLoaded = true;
 	}
@@ -44,6 +44,13 @@
 			index = -1;
 			$("#text").text("START");
 		}
+	}
+	function reload(){
+		text = null;
+		index = -1;
+		isLoaded = false;
+		$("#src").show();
+		$(".playing").hide();
 	}
 </script>
 <style>
@@ -66,8 +73,9 @@
 <br>
 <textarea id="src2" rows="4" cols="50">512,51,25,12,521,5,21,521</textarea><button onclick='load("src2")'>2</button>
 </div>
-<div class="container">
-<h1 id="text">
+<button class="playing" onclick='reload()'>reload</button>
+<div class="container playing">
+<h1 id="text" class="playing">
 Text
 </h1>
 </div>
