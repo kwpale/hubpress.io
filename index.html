@@ -1,222 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-
-    <title>Pan&#x27;s Learning Notes</title>
-
-    <meta name="HandheldFriendly" content="True">
-    <meta name="MobileOptimized" content="320">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-    <meta name="description" content="">
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Pan&#x27;s Learning Notes">
-    <meta name="twitter:description" content="">
-
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Pan&#x27;s Learning Notes">
-    <meta property="og:description" content="">
-
-    <!-- <meta name="twitter:site" content="">
-
-<meta name="twitter:creator" content="">
-
-<meta name="google-site-verification" content="">
-
-<meta property="fb:admins" content="">
- -->
-
-    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link href="/apple-touch-icon-precomposed.png" rel="apple-touch-icon">
-
-    <link href="//fonts.googleapis.com/" rel="dns-prefetch">
-    <link href="//fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic|Open+Sans:700,400&subset=latin,latin-ext" rel="stylesheet">
-
-    <link rel="stylesheet" href="//kwpale.github.io/themes/ghostium/assets/css/main.min.css?v=1503594357943"/>
-    <link rel="stylesheet" href="//kwpale.github.io/themes/ghostium/assets/css/custom.css?v=1503594357943"/>
-    <link rel="stylesheet" href="//kwpale.github.io/themes/ghostium/assets/css/asciidoctor-foundation.css?v=1503594357943"/>
-
-
-
-
-    <script type="text/javascript">
-      var ga_ua = 'UA-XXXXX-X';
-      
-      var disqus_shortname = 'example';
-      
-      var enable_pjax = true;
-
-      // Pace Options
-      // ==============
-      window.paceOptions = {
-        catchupTime: 100,
-        minTime: 100,
-        elements: false,
-        restartOnRequestAfter: 500,
-        startOnPageLoad: false
-      }
-
-      // Ghostium Globals
-      // ==============
-      window.GHOSTIUM = {};
-      GHOSTIUM.haveGA = typeof ga_ua !== 'undefined' && ga_ua !== 'UA-XXXXX-X';
-      GHOSTIUM.haveDisqus = typeof disqus_shortname !== 'undefined' && disqus_shortname !== 'example';
-      GHOSTIUM.enablePjax = typeof enable_pjax !== 'undefined' ? enable_pjax : true;
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Guess Word!</title>
+    <script src="jquery.min.js">
     </script>
-
-    <script src="//kwpale.github.io/themes/ghostium/assets/js/head-scripts.min.js?v=1503594357943"></script>
-
-    <link rel="canonical" href="https://kwpale.github.io/" />
-    <meta name="referrer" content="origin" />
-    
-    <meta property="og:site_name" content="Pan&#x27;s Learning Notes" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Pan&#x27;s Learning Notes" />
-    <meta property="og:url" content="https://kwpale.github.io/" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Pan&#x27;s Learning Notes" />
-    <meta name="twitter:url" content="https://kwpale.github.io/" />
-    
-    <script type="application/ld+json">
-{
-    "@context": "http://schema.org",
-    "@type": "Website",
-    "publisher": "Pan&#x27;s Learning Notes",
-    "url": "https://kwpale.github.io/"
-}
-    </script>
-
-    <meta name="generator" content="HubPress" />
-    <link rel="alternate" type="application/rss+xml" title="Pan&#x27;s Learning Notes" href="https://kwpale.github.io/rss/" />
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/atom-one-dark.min.css">
-    
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </head>
-  <body class="home-template">
-
-    <button data-action="open-drawer" id="drawer-button" class="drawer-button"><i class="fa fa-bars"></i></button>
-    <nav tabindex="-1" class="drawer">
-      <div class="drawer-container">
-        <!--.drawer-search(role="search")-->
-        <ul role="navigation" class="drawer-list">
-          
-          <li class="drawer-list-item">
-            <a href="https://kwpale.github.io" data-pjax>
-              <i class="fa fa-home"></i>Home
-            </a>
-          </li>
-          <!-- <li class="drawer-list-item">
-            <a href="https://kwpale.github.io" title="Pan&#x27;s Learning Notes" data-pjax>
-              <i class="fa fa-list-alt"></i>All posts
-            </a>
-          </li> -->
-          <li class="drawer-list-item">
-            <a href="https://kwpale.github.io/rss/">
-              <i class="fa fa-rss"></i>Subscribe to Feed
-            </a>
-          </li>
-          <li class="drawer-list-divider"></li>
-          <li class="drawer-list-item drawer-list-title">
-            Follow me
-          </li>
-          
-          
-        </ul>
-      </div>
-    </nav>
-
-    <div class="drawer-overlay"></div>
-    <main id="container" role="main" class="container">
-      <div class="surface">
-        <div class="surface-container">
-          <div data-pjax-container class="content">
-            
-<aside role="banner" class="cover">
-  <div  class="cover-image"></div>
-  <div class="cover-container">
-    <h1 class="cover-title"><a href="https://kwpale.github.io" title="Pan&#x27;s Learning Notes">Pan&#x27;s Learning Notes</a></h1>
-    <p class="cover-description">Just want to record what I find useful.</p>
-  </div>
-</aside>
-
-<section class="wrapper" tabindex="0">
-  <div class="wrapper-container">
-    Pan&#x27;s Learning Notes
-
-    <section class="post-list">
-        <article itemscope itemtype="http://schema.org/BlogPosting"
-          role="article" class="post-item post tag-Spring tag-Logging">
-          <header class="post-item-header">
-            <h2 itemprop="name" class="post-item-title">
-              <a href="https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html" itemprop="url" data-pjax title="Using slf4j and log4j2 with gradle in Spring">
-                Using slf4j and log4j2 with gradle in Spring
-              </a>
-            </h2>
-          </header>
-          <section itemprop="description" class="post-item-excerpt">
-            <p>Official Reference: https://docs.spring.io/spring/docs/current/spring-framework-reference/html/overview.html#overview-logging Step 1. First, tell dependency manager not to use Jakarta Commons Logging (JCL) by adding: build.gradle configurations&hellip;</p>
-          </section>
-          <footer class="post-item-footer">
-            <ul class="post-item-meta-list">
-              <li class="post-item-meta-item">
-                <time datetime="2017-08-25" itemprop="datePublished">
-                  an hour ago
-                </time>
-              </li>
-                <li class="post-item-meta-item">
-                  <span class="tags"><i class="fa fa-tags"></i>
-                      <span>
-                      <a href="https://kwpale.github.io/tag/Spring/">Spring</a>, <a href="https://kwpale.github.io/tag/Logging/">Logging</a></span>
-                  </span>
-                </li>
-              <li class="post-item-meta-item">
-                <a href="https://kwpale.github.io/2017/08/25/Using-slf4j-and-log4j2-with-gradle-in-Spring.html#disqus_thread" data-pjax data-disqus-identifier="">Comments</a>
-              </li>
-            </ul>
-          </footer>
-        </article>
-    </section>
-
-      <nav role="pagination" class="post-list-pagination">
-  <span class="post-list-pagination-item post-list-pagination-item-current">Page 1 of 1</span>
-</nav>
-
-
-    <footer role="contentinfo" class="footer">
-      <p><small>Copyright &copy; <span itemprop="copyrightHolder">Pan&#x27;s Learning Notes</span>. 2017. All Rights Reserved.</small></p>
-      <p><small><a href="http://ghostium.oswaldoacauan.com/" target="_blank">Ghostium Theme</a> by <a href="http://twitter.com/oswaldoacauan" target="_blank">@oswaldoacauan</a></small></p>
-      <p><small>Adapted by <a href="https://twitter.com/mgreau">Maxime Gréau</a></small></p>
-      <p><small>Published with <a href="http://hubpress.io">HubPress</a></small></p>
-    </footer>
-  </div>
-</section>
-
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.min.js?v="></script> <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js?v="></script> 
-      <script type="text/javascript">
-        jQuery( document ).ready(function() {
-          // change date with ago
-          jQuery('ago.ago').each(function(){
-            var element = jQuery(this).parent();
-            element.html( moment(element.text()).fromNow());
-          });
+    <script>
+        var text;
+        var index = -1;
+        var isLoaded = false;
+        var pointerEventToXY = function(e){
+            var out = {x:0, y:0};
+            if(e.type === 'touchstart' || e.type === 'touchmove' || e.type === 'touchend' || e.type === 'touchcancel'){
+                var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                out.x = touch.pageX;
+                out.y = touch.pageY;
+            } else if (e.type === 'mousedown' || e.type === 'mouseup' || e.type === 'mousemove' || e.type === 'mouseover'|| e.type==='mouseout' || e.type==='mouseenter' || e.type==='mouseleave') {
+                out.x = e.pageX;
+                out.y = e.pageY;
+            }
+            return out;
+        };
+        $(document).ready(function(){
+            $(".playing").hide();
+            var htmlElement = document.querySelector("html");
+            var click = ('ontouchstart' in document.documentElement)  ? 'touchstart' : 'mousedown';
+            $(htmlElement).bind(click, function(e){
+                var pWidth = $(this).innerWidth();
+                var x = pointerEventToXY(e).x;
+                if (isLoaded) {
+                    if(pWidth/2 > x)
+                        back();
+                    else
+                        next();
+                }
+            });
         });
+        function load(id){
+            $(".non-playing").hide();
+            text = shuffle($('#' + id).val().split(","));
+            $(".playing").show();
+            $("#text").text("START");
+            isLoaded = true;
+        }
+        function next(){
+            if (index<text.length-1) {
+                $("#text").text(text[++index]);
+            } else {
+                index = text.length;
+                $("#text").text("END");
+            }
+        }
+        function back(){
+            if (index>0) {
+                $("#text").text(text[--index]);
+            } else {
+                index = -1;
+                $("#text").text("START");
+            }
+        }
+        function reload(){
+            text = null;
+            index = -1;
+            isLoaded = false;
+            $(".non-playing").show();
+            $(".playing").hide();
+        }
+        function zoomIn(){
+            var currentSize = $('h1').css('font-size');
+            var currentSize = parseFloat(currentSize)*1.2;
+            $('h1').css('font-size', currentSize);
+        }
+        function zoomOut(){
+            var currentSize = $('h1').css('font-size');
+            var currentSize = parseFloat(currentSize)*0.8;
+            $('h1').css('font-size', currentSize);
+        }
+        function shuffle(array) {
+            var currentIndex = array.length, temporaryValue, randomIndex;
 
-        hljs.initHighlightingOnLoad();
-      </script>
+            // While there remain elements to shuffle...
+            while (0 !== currentIndex) {
 
-    <script src="//kwpale.github.io/themes/ghostium/assets/js/foot-scripts.min.js?v=1503594357943"></script>
+                // Pick a remaining element...
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex -= 1;
 
+                // And swap it with the current element.
+                temporaryValue = array[currentIndex];
+                array[currentIndex] = array[randomIndex];
+                array[randomIndex] = temporaryValue;
+            }
 
-  </body>
+            return array;
+        }
+    </script>
+    <style>
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -moz-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+        }
+        h1 {
+            font-size: 1000%;
+        }
+    </style>
+</head>
+<body>
+<div id="src" class="non-playing">
+    <textarea id="src1" rows="4" cols="50">尼羅河,便雅憫,公牛犢,蛾摩拉,絆腳石,珍珠,奴隸,荊棘,裝飾,幫助者,麥基洗德,祝福,本丢·彼拉多,腰帶,咒詛,米迦勒,阿爾法,塔塔魯斯,庇護城,全燒祭</textarea><button onclick='load("src1")'>1</button>
+    <br>
+    <textarea id="src2" rows="4" cols="50">歌革,生命冊,幼發拉底河,酒榨,蝗蟲,呂便,綿羊羔,器皿,鹽,居間人,書拉麥,以弗所,盾牌,祝福,銀元,野獸,奧米迦,以法他,咒詛,沉思</textarea><button onclick='load("src2")'>2</button>
+    <br>
+    <textarea id="src3" rows="4" cols="50">血,蛇,方舟,隻手遮天,頭盔,競步,見錢開眼,象棋,心心相印,籃球</textarea><button onclick='load("src3")'>3</button>
+    <br>
+    <textarea id="src4" rows="4" cols="50">一分為二,目中無人,接力,彩虹,天使,笛,星星,高爾夫球,熱身,三級跳</textarea><button onclick='load("src4")'>4</button>
+</div>
+<button class="playing" onclick='reload()'>reload</button>
+<button class="playing" onclick='zoomIn()'>+</button>
+<button class="playing" onclick='zoomOut()'>-</button>
+<div class="container playing">
+    <h1 id="text" class="playing">
+        Text
+    </h1>
+</div>
+</body>
 </html>
